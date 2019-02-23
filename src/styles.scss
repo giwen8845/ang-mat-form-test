@@ -56,4 +56,13 @@ body {
   text-align: left;
   align-items: unset;
   justify-content: left;
+  overflow: auto;
+}
+
+.server-validation-wrapper {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.server-validation-value>input {
+  width: 100%;
 }
