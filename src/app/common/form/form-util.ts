@@ -1,6 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors} from "@angular/forms";
 
-export class Util {
+export class FormUtil {
   public static hasFormGroupClientValidationErrors(control:AbstractControl) {
     if(control != null){
       if(control.errors != null && Object.keys(control.errors).length > 0 &&

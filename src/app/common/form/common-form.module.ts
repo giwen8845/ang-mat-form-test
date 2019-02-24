@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CompanyFormComponent } from './company-form/company-form.component';
 import {
+  ErrorStateMatcher,
   MatButtonModule,
   MatCardModule, MatDatepickerModule, MatFormFieldModule,
   MatGridListModule,
@@ -9,10 +9,15 @@ import {
   MatNativeDateModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CommonFormModule} from "../../common/form/common-form.module";
+import {CommonFormInputComponent} from "./component/common-form-input.component";
+import {BaseFormHttpService} from "./service/base-form-http.service";
+import {BaseFormValidatorService} from "./service/base-form-validator.service";
+import {BaseErrorStateMatcher} from "./error/base-error-state-matcher";
 
 @NgModule({
-  declarations: [CompanyFormComponent],
+  declarations: [
+    CommonFormInputComponent
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -23,13 +28,15 @@ import {CommonFormModule} from "../../common/form/common-form.module";
     MatButtonModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatFormFieldModule,
-    CommonFormModule
+    MatFormFieldModule
   ],
   exports: [
-    CompanyFormComponent
+    CommonFormInputComponent
   ],
   providers: [
+    {provide: ErrorStateMatcher, useValue: new BaseErrorStateMatcher()},
+    BaseFormHttpService,
+    BaseFormValidatorService
   ]
 })
-export class CompanyModule { }
+export class CommonFormModule { }

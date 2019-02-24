@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
-import {CompanyFormHttpService} from "./company-form-http.service";
-import {Util} from "../../../common/util";
+import {FormUtil} from "../../../common/form/form-util";
+import {BaseFormHttpService} from "../../../common/form/service/base-form-http.service";
+import {BaseFormValidatorService} from "../../../common/form/service/base-form-validator.service";
 
 @Component({
   selector: 'app-company-form',
@@ -94,7 +95,7 @@ import {Util} from "../../../common/util";
           <div class="example-viewer-title">Szerver oldali model:</div>
           <div class="example-viewer-body">
             <pre>
-              {{ service.modelOnServer | json }}
+              {{ httpService.modelOnServer | json }}
             </pre>
           </div>
         </div>
@@ -104,9 +105,9 @@ import {Util} from "../../../common/util";
           <div class="example-viewer-title">Szerver oldali validáció response:</div>
           <div class="example-viewer-body">
             <div class="server-validation-wrapper">
-              <ng-container *ngFor="let key of objectKeys(service.mockedServerValidationResultsOnServer)" >
+              <ng-container *ngFor="let key of objectKeys(httpService.mockedServerValidationResultsOnServer)" >
                 <div class="server-validation-key">{{key}}:</div>
-                <div class="server-validation-value"><input type="text" [(ngModel)]="service.mockedServerValidationResultsOnServer[key]"></div>
+                <div class="server-validation-value"><input type="text" [(ngModel)]="httpService.mockedServerValidationResultsOnServer[key]"></div>
               </ng-container>
             </div>
           </div>
@@ -119,32 +120,36 @@ export class CompanyFormComponent implements OnInit {
 
   objectKeys = Object.keys;
 
-  constructor(private fb: FormBuilder, public service:CompanyFormHttpService) { }
+  constructor(
+    private fb: FormBuilder,
+    public httpService:BaseFormHttpService,
+    public validatorService:BaseFormValidatorService
+  ) { }
 
   companyForm = this.fb.group({
     name: ['', [
       Validators.required,
-      this.service.serverValid.bind(this.service)
+      this.validatorService.serverValid.bind(this.validatorService)
     ]
     ],
     email: ['', [
       Validators.required,
       Validators.email,
-      this.service.serverValid.bind(this.service)
+      this.validatorService.serverValid.bind(this.validatorService)
     ]
     ],
-    date: ['', this.service.serverValid.bind(this.service)],
+    date: ['', this.validatorService.serverValid.bind(this.validatorService)],
     contact: this.fb.group({
-      address: ['', this.service.serverValid.bind(this.service)],
-      phone: ['', this.service.serverValid.bind(this.service)],
+      address: ['', this.validatorService.serverValid.bind(this.validatorService)],
+      phone: ['', this.validatorService.serverValid.bind(this.validatorService)],
     }),
     employees: this.fb.array([
       this.fb.group({
         name: ['', [
           Validators.required,
-          this.service.serverValid.bind(this.service)
+          this.validatorService.serverValid.bind(this.validatorService)
         ]],
-        active: [false, this.service.serverValid.bind(this.service)],
+        active: [false, this.validatorService.serverValid.bind(this.validatorService)],
       })
     ])
   });
@@ -158,9 +163,9 @@ export class CompanyFormComponent implements OnInit {
       this.fb.group({
         name: ['', [
           Validators.required,
-          this.service.serverValid.bind(this.service)
+          this.validatorService.serverValid.bind(this.validatorService)
         ]],
-        active: [false, this.service.serverValid.bind(this.service)],
+        active: [false, this.validatorService.serverValid.bind(this.validatorService)],
       })
     );
 
@@ -175,20 +180,20 @@ export class CompanyFormComponent implements OnInit {
      * Válasz: form adatok + validáció
      * TODO más is érkezhet, globális üzenetek, stb, illetve csak mockolt, hogy melyik adat hol lakik, validáció egyelőre a serviceben
      */
-    this.service.mockFormPostToServer(this.companyForm.value)
+    this.httpService.mockFormPostToServer(this.companyForm.value)
       .subscribe(value => {
         this.companyForm.setValue(value)
     });
   }
 
   hasAnyClientValidationErrors() : boolean {
-    return Util.hasFormGroupClientValidationErrors(this.companyForm);
+    return FormUtil.hasFormGroupClientValidationErrors(this.companyForm);
   }
 
   ngOnInit() {
-    this.service.updateMockServerValidationKeys(this.companyForm);
+    this.validatorService.updateMockServerValidationKeys(this.companyForm);
     this.companyForm.valueChanges.subscribe(form => {
-      this.service.updateMockServerValidationKeys(this.companyForm);
+      this.validatorService.updateMockServerValidationKeys(this.companyForm);
     });
 
   }
