@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   `
 })
 export class CommonFormInputComponent {
-
+  // TODO abstract input
 }

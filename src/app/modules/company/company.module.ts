@@ -6,13 +6,21 @@ import {
   MatCardModule, MatDatepickerModule, MatFormFieldModule,
   MatGridListModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule, MatSlideToggleModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonFormModule} from "../../common/form/common-form.module";
+import {MockServerValidationComponent} from "./component/mock-server-validation.component";
+import {MockServerModelComponent} from "./component/mock-server-model.component";
+import {MockClientModelComponent} from "./component/mock-client-model.component";
 
 @NgModule({
-  declarations: [CompanyFormComponent],
+  declarations: [
+    CompanyFormComponent,
+    MockServerValidationComponent,
+    MockServerModelComponent,
+    MockClientModelComponent
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -24,6 +32,7 @@ import {CommonFormModule} from "../../common/form/common-form.module";
     MatNativeDateModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatSlideToggleModule,
     CommonFormModule
   ],
   exports: [
