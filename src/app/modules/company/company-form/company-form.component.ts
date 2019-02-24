@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import {FormUtil} from "../../../common/form/form-util";
 import {BaseFormHttpService} from "../../../common/form/service/base-form-http.service";
 import {BaseFormValidatorService} from "../../../common/form/service/base-form-validator.service";
+import {BaseFormBuilderService} from "../../../common/form/service/base-form-builder.service";
 
 @Component({
   selector: 'app-company-form',
@@ -121,35 +122,24 @@ export class CompanyFormComponent implements OnInit {
   objectKeys = Object.keys;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: BaseFormBuilderService,
     public httpService:BaseFormHttpService,
     public validatorService:BaseFormValidatorService
   ) { }
 
   companyForm = this.fb.group({
-    name: ['', [
-      Validators.required,
-      this.validatorService.serverValid.bind(this.validatorService)
-    ]
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email,]
     ],
-    email: ['', [
-      Validators.required,
-      Validators.email,
-      this.validatorService.serverValid.bind(this.validatorService)
-    ]
-    ],
-    date: ['', this.validatorService.serverValid.bind(this.validatorService)],
+    date: [''],
     contact: this.fb.group({
-      address: ['', this.validatorService.serverValid.bind(this.validatorService)],
-      phone: ['', this.validatorService.serverValid.bind(this.validatorService)],
+      address: [''],
+      phone: [''],
     }),
     employees: this.fb.array([
       this.fb.group({
-        name: ['', [
-          Validators.required,
-          this.validatorService.serverValid.bind(this.validatorService)
-        ]],
-        active: [false, this.validatorService.serverValid.bind(this.validatorService)],
+        name: ['', Validators.required],
+        active: [false],
       })
     ])
   });

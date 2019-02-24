@@ -13,6 +13,7 @@ import {CommonFormInputComponent} from "./component/common-form-input.component"
 import {BaseFormHttpService} from "./service/base-form-http.service";
 import {BaseFormValidatorService} from "./service/base-form-validator.service";
 import {BaseErrorStateMatcher} from "./error/base-error-state-matcher";
+import {BaseFormBuilderService} from "./service/base-form-builder.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {BaseErrorStateMatcher} from "./error/base-error-state-matcher";
   providers: [
     {provide: ErrorStateMatcher, useValue: new BaseErrorStateMatcher()},
     BaseFormHttpService,
-    BaseFormValidatorService
+    BaseFormValidatorService,
+    BaseFormBuilderService
   ]
 })
 export class CommonFormModule { }
