@@ -71,7 +71,7 @@ import {BaseFormComponent} from "../../../common/form/component/base-form.compon
                         <strong>{{formRoot.controls.employees.controls[i].controls.name.errors.serverValid.text}}</strong>
                       </mat-error>
                     </mat-form-field>
-                    <mat-slide-toggle formControlName="active" placeholder="Aktív" [color]="'primary'"></mat-slide-toggle>
+                    <mat-slide-toggle formControlName="active" placeholder="Aktív" [color]="'primary'" style="margin-left: 25px"></mat-slide-toggle>
                     <button mat-button color="primary" (click)="removeEmployeeClickEvent($event, i)">Törlés</button>
                   </div>
                 </ng-container>
