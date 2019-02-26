@@ -23,6 +23,7 @@
 * Közös ős form komponens (BaseFormComponent)
 * Közös ős error state matcher (BaseErrorStateMatcher) a kliens/szerver hibák összefésülésére
 * Közös ős formBuilder (BaseFormBuilderService) a form mezők + szerver oldali validáció megfeleltetések elfedésére
+* Kiemelt form komponensek (CommonTextInputComponent, ...), a jövőben könnyen átalakítható/lecserélhető a form elemek renderelése
 
 ## Amit még lehetne alakítani a mintaalkalmazáson:
 
