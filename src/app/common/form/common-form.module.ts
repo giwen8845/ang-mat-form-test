@@ -9,15 +9,19 @@ import {
   MatNativeDateModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CommonFormInputComponent} from "./component/common-form-input.component";
+import {CommonTextInputComponent} from "./component/common-text-input.component";
 import {BaseFormHttpService} from "./service/base-form-http.service";
 import {BaseFormValidatorService} from "./service/base-form-validator.service";
 import {BaseErrorStateMatcher} from "./error/base-error-state-matcher";
 import {BaseFormBuilderService} from "./service/base-form-builder.service";
+import {CommonDateInputComponent} from "./component/common-date-input.component";
+import {CommonEmailInputComponent} from "./component/common-email-input.component";
 
 @NgModule({
   declarations: [
-    CommonFormInputComponent
+    CommonTextInputComponent,
+    CommonDateInputComponent,
+    CommonEmailInputComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,9 @@ import {BaseFormBuilderService} from "./service/base-form-builder.service";
     MatFormFieldModule
   ],
   exports: [
-    CommonFormInputComponent
+    CommonTextInputComponent,
+    CommonDateInputComponent,
+    CommonEmailInputComponent
   ],
   providers: [
     {provide: ErrorStateMatcher, useValue: new BaseErrorStateMatcher()},

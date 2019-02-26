@@ -10,7 +10,7 @@ import {
 import {BaseFormValidatorService} from "./base-form-validator.service";
 
 @Injectable()
-export class BaseFormBuilderService extends FormBuilder{
+export class BaseFormBuilderService extends FormBuilder {
 
   constructor(private validatorService: BaseFormValidatorService) {
     super();
